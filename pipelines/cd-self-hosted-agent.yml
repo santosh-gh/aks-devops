@@ -26,7 +26,7 @@ variables:
 - name: tfvarsPath
   value: tfvars/agent/agent.tfvars
 - name: location
-  value: westeurope
+  value: southindia
   
 pool:
   vmImage: ubuntu-latest

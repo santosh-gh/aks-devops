@@ -16,9 +16,9 @@ variables:
 - name: environment
   value: production
 - name: prefix
-  value: Babosbird
+  value: ContosoProd
 - name: location
-  value: westeurope
+  value: southindia
 - name: kubernetesVersion
   value: '1.21.2'
 - name: resourceGroupName
