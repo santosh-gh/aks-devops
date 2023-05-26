@@ -102,17 +102,17 @@ module "aks_network" {
   ]
 }
 
-module "vnet_peering" {
-  source              = "./modules/virtual_network_peering"
-  vnet_1_name         = var.hub_vnet_name
-  vnet_1_id           = module.hub_network.vnet_id
-  vnet_1_rg           = azurerm_resource_group.rg.name
-  vnet_2_name         = var.aks_vnet_name
-  vnet_2_id           = module.aks_network.vnet_id
-  vnet_2_rg           = azurerm_resource_group.rg.name
-  peering_name_1_to_2 = "${var.hub_vnet_name}To${var.aks_vnet_name}"
-  peering_name_2_to_1 = "${var.aks_vnet_name}To${var.hub_vnet_name}"
-}
+# module "vnet_peering" {
+#   source              = "./modules/virtual_network_peering"
+#   vnet_1_name         = var.hub_vnet_name
+#   vnet_1_id           = module.hub_network.vnet_id
+#   vnet_1_rg           = azurerm_resource_group.rg.name
+#   vnet_2_name         = var.aks_vnet_name
+#   vnet_2_id           = module.aks_network.vnet_id
+#   vnet_2_rg           = azurerm_resource_group.rg.name
+#   peering_name_1_to_2 = "${var.hub_vnet_name}To${var.aks_vnet_name}"
+#   peering_name_2_to_1 = "${var.aks_vnet_name}To${var.hub_vnet_name}"
+# }
 
 module "firewall" {
   source                       = "./modules/firewall"
@@ -254,29 +254,29 @@ module "bastion_host" {
   log_analytics_retention_days = var.log_analytics_retention_days
 }
 
-module "virtual_machine" {
-  source                              = "./modules/virtual_machine"
-  name                                = var.vm_name
-  size                                = var.vm_size
-  location                            = var.location
-  public_ip                           = var.vm_public_ip
-  vm_user                             = var.admin_username
-  admin_ssh_public_key                = var.ssh_public_key
-  os_disk_image                       = var.vm_os_disk_image
-  domain_name_label                   = var.domain_name_label
-  resource_group_name                 = azurerm_resource_group.rg.name
-  subnet_id                           = module.aks_network.subnet_ids[var.vm_subnet_name]
-  os_disk_storage_account_type        = var.vm_os_disk_storage_account_type
-  boot_diagnostics_storage_account    = module.storage_account.primary_blob_endpoint
-  log_analytics_workspace_id          = module.log_analytics_workspace.workspace_id
-  log_analytics_workspace_key         = module.log_analytics_workspace.primary_shared_key
-  log_analytics_workspace_resource_id = module.log_analytics_workspace.id
-  log_analytics_retention_days        = var.log_analytics_retention_days
-  script_storage_account_name         = var.script_storage_account_name
-  script_storage_account_key          = var.script_storage_account_key
-  container_name                      = var.container_name
-  script_name                         = var.script_name
-}
+# module "virtual_machine" {
+#   source                              = "./modules/virtual_machine"
+#   name                                = var.vm_name
+#   size                                = var.vm_size
+#   location                            = var.location
+#   public_ip                           = var.vm_public_ip
+#   vm_user                             = var.admin_username
+#   admin_ssh_public_key                = var.ssh_public_key
+#   os_disk_image                       = var.vm_os_disk_image
+#   domain_name_label                   = var.domain_name_label
+#   resource_group_name                 = azurerm_resource_group.rg.name
+#   subnet_id                           = module.aks_network.subnet_ids[var.vm_subnet_name]
+#   os_disk_storage_account_type        = var.vm_os_disk_storage_account_type
+#   boot_diagnostics_storage_account    = module.storage_account.primary_blob_endpoint
+#   log_analytics_workspace_id          = module.log_analytics_workspace.workspace_id
+#   log_analytics_workspace_key         = module.log_analytics_workspace.primary_shared_key
+#   log_analytics_workspace_resource_id = module.log_analytics_workspace.id
+#   log_analytics_retention_days        = var.log_analytics_retention_days
+#   script_storage_account_name         = var.script_storage_account_name
+#   script_storage_account_key          = var.script_storage_account_key
+#   container_name                      = var.container_name
+#   script_name                         = var.script_name
+# }
 
 module "node_pool" {
   source = "./modules/node_pool"
