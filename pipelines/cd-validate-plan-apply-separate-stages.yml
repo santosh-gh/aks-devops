@@ -18,13 +18,13 @@ variables:
 - name: environment
   value: production
 - name: prefix
-  value: aks
+  value: Babosbird
 - name: location
   value: southindia
 - name: kubernetesVersion
   value: '1.21.2'
 - name: resourceGroupName
-  value: '$(prefix)-rg'
+  value: '$(prefix)RG'
 - name: aksClusterName
   value: '$(prefix)Aks'
 - name: logAnalyticsWorkspaceName
@@ -247,7 +247,7 @@ stages :
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-input=false -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
+        #commandOptions: '-input=false -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
         environmentServiceNameAzureRM: $(AzureResourceManagerConnection)
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(terraformPath)/'
     - task: AzureCLI@2
@@ -444,7 +444,7 @@ stages :
       inputs:
         provider: 'azurerm'
         command: 'plan'
-        commandOptions: '-input=false -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="container_name=$(containerName)" -var="script_name=$(scriptName)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
+        #commandOptions: '-input=false -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="container_name=$(containerName)" -var="script_name=$(scriptName)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
         environmentServiceNameAzureRM: $(AzureResourceManagerConnection)
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(terraformPath)/'
     - task: TerraformTaskV2@2
@@ -453,7 +453,7 @@ stages :
       inputs:
         provider: 'azurerm'
         command: 'apply'
-        commandOptions: '-input=false -auto-approve -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="container_name=$(containerName)" -var="script_name=$(scriptName)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
+        #commandOptions: '-input=false -auto-approve -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="container_name=$(containerName)" -var="script_name=$(scriptName)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
         environmentServiceNameAzureRM: $(AzureResourceManagerConnection)
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(terraformPath)/'
     - task: AzureCLI@2
