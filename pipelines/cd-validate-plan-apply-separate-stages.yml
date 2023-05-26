@@ -1,6 +1,6 @@
 name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
 
-trigger: none
+trigger: main
 pr: none
 
 variables:
