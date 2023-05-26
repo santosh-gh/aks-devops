@@ -65,6 +65,9 @@ stages :
       displayName: 'Terraform Install'
       inputs:
         terraformVersion: $(terraformVersion)
+    - script: |
+              ls $(System.DefaultWorkingDirectory)
+
     - task: TerraformTaskV2@2
       displayName: 'Terraform Init'
       inputs:
