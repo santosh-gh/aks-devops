@@ -6,7 +6,7 @@ pr: none
 variables:
 - group: global-variables
 - name: azureSubscription
-  value: AzureSubscription
+  value: arm-svc-connection
 - name: terraformVersion
   value: 1.0.7
 - name: terraformPath
