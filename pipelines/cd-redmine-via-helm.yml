@@ -24,7 +24,7 @@ variables:
 - name: routeTableName
   value: DefaultRouteTable
 - name: location
-  value: westeurope
+  value: southindia
 - name: helmRepoName
   value: bitnami-azure
 - name: helmRepoUrl

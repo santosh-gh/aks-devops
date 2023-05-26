@@ -4,7 +4,7 @@ trigger: none
 pr: none
 
 variables:
-# - group: global-variables
+- group: global-variables
 - name: azureSubscription
   value: arm-svc-connection
 - name: terraformVersion
@@ -18,7 +18,7 @@ variables:
 - name: prefix
   value: Babosbird
 - name: location
-  value: westeurope
+  value: southindia
 - name: kubernetesVersion
   value: '1.21.2'
 - name: resourceGroupName
@@ -70,7 +70,7 @@ stages :
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: $(azureSubscription)
+        backendServiceArm: $(AzureResourceManagerConnection)
         backendAzureRmResourceGroupName: $(terraformBackendResourceGroupName)
         backendAzureRmStorageAccountName: $(terraformBackendStorageAccountName)
         backendAzureRmContainerName: '$(terraformBackendContainerName)'
@@ -97,7 +97,7 @@ stages :
       inputs:
         scriptType: bash
         scriptLocation: inlineScript
-        azureSubscription: $(azureSubscription)
+        azureSubscription: $(AzureResourceManagerConnection)
         addSpnToEnvironment: true
         inlineScript: |
           #Variables
@@ -231,7 +231,7 @@ stages :
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: $(azureSubscription)
+        backendServiceArm: $(AzureResourceManagerConnection)
         backendAzureRmResourceGroupName: $(terraformBackendResourceGroupName)
         backendAzureRmStorageAccountName: $(terraformBackendStorageAccountName)
         backendAzureRmContainerName: '$(terraformBackendContainerName)'
@@ -243,7 +243,7 @@ stages :
         provider: 'azurerm'
         command: 'plan'
         commandOptions: '-input=false -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
-        environmentServiceNameAzureRM: $(azureSubscription)
+        environmentServiceNameAzureRM: $(AzureResourceManagerConnection)
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(terraformPath)/'
     - task: AzureCLI@2
       displayName: 'Delete Temporary Storage Account'
@@ -251,7 +251,7 @@ stages :
       inputs:
         scriptType: bash
         scriptLocation: inlineScript
-        azureSubscription: $(azureSubscription)
+        azureSubscription: $(AzureResourceManagerConnection)
         addSpnToEnvironment: true
         inlineScript: |
           az group delete \
@@ -280,7 +280,7 @@ stages :
       inputs:
         scriptType: bash
         scriptLocation: inlineScript
-        azureSubscription: $(azureSubscription)
+        azureSubscription: $(AzureResourceManagerConnection)
         addSpnToEnvironment: true
         inlineScript: |
           #Variables
@@ -411,7 +411,7 @@ stages :
       inputs:
         scriptType: bash
         scriptLocation: inlineScript
-        azureSubscription: $(azureSubscription)
+        azureSubscription: $(AzureResourceManagerConnection)
         addSpnToEnvironment: true
         inlineScript: |
           version=$(az aks get-versions --location $(location) --query "orchestrators[?isPreview==false].orchestratorVersion | sort(@) | [-1]" --output tsv)
@@ -427,7 +427,7 @@ stages :
       inputs:
         provider: 'azurerm'
         command: 'init'
-        backendServiceArm: $(azureSubscription)
+        backendServiceArm: $(AzureResourceManagerConnection)
         backendAzureRmResourceGroupName: $(terraformBackendResourceGroupName)
         backendAzureRmStorageAccountName: $(terraformBackendStorageAccountName)
         backendAzureRmContainerName: '$(terraformBackendContainerName)'
@@ -440,7 +440,7 @@ stages :
         provider: 'azurerm'
         command: 'plan'
         commandOptions: '-input=false -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="container_name=$(containerName)" -var="script_name=$(scriptName)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
-        environmentServiceNameAzureRM: $(azureSubscription)
+        environmentServiceNameAzureRM: $(AzureResourceManagerConnection)
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(terraformPath)/'
     - task: TerraformTaskV2@2
       displayName: 'Terraform Apply'
@@ -449,7 +449,7 @@ stages :
         provider: 'azurerm'
         command: 'apply'
         commandOptions: '-input=false -auto-approve -var ssh_public_key=$(sshPublicKey) -var location=$(location) -var="script_storage_account_name=$(storageAccountName)" -var="script_storage_account_key=$(storageAccountKey)" -var="container_name=$(containerName)" -var="script_name=$(scriptName)" -var="hub_vnet_name=$(hubVNetName)" -var="aks_vnet_name=$(aksVNetName)" -var="vm_name=$(vmName)" -var kubernetes_version=$(kubernetesVersion) -var resource_group_name=$(resourceGroupName) -var aks_cluster_name=$(aksClusterName) -var log_analytics_workspace_name=$(logAnalyticsWorkspaceName) -var domain_name_label=$(domainNameLabel) -var firewall_name=$(firewallName) -var acr_name=$(acrName) -var bastion_host_name=$(bastionHostName) -var key_vault_name=$(keyVaultName)'
-        environmentServiceNameAzureRM: $(azureSubscription)
+        environmentServiceNameAzureRM: $(AzureResourceManagerConnection)
         workingDirectory: '$(System.DefaultWorkingDirectory)/$(terraformPath)/'
     - task: AzureCLI@2
       displayName: 'Delete Temporary Storage Account'
@@ -457,7 +457,7 @@ stages :
       inputs:
         scriptType: bash
         scriptLocation: inlineScript
-        azureSubscription: $(azureSubscription)
+        azureSubscription: $(AzureResourceManagerConnection)
         addSpnToEnvironment: true
         inlineScript: |
           az group delete \
