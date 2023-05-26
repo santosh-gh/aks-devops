@@ -18,13 +18,13 @@ variables:
 - name: environment
   value: production
 - name: prefix
-  value: Babosbird
+  value: aks
 - name: location
   value: southindia
 - name: kubernetesVersion
   value: '1.21.2'
 - name: resourceGroupName
-  value: '$(prefix)RG'
+  value: '$(prefix)-rg'
 - name: aksClusterName
   value: '$(prefix)Aks'
 - name: logAnalyticsWorkspaceName
